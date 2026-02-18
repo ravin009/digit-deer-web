@@ -1,38 +1,741 @@
-.App {
-  text-align: center;
+/* src/App.css */
+/* Add to top of App.css */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html, body {
+  overflow-x: hidden; /* Prevents side-scrolling whitespace */
+  width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+}
+
+/* Navbar */
+/* Update your existing .navbar class */
+/* --- Navbar Layout Updates --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  background: #fff;
+  height: 80px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Hide hamburger by default (Desktop) */
+.menu-icon {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #0056b3;
+}
+
+/* --- Mobile View (768px and below) --- */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: block; /* Show hamburger on mobile */
+    order: 1;      /* Keeps it on the left */
+  }
+
+  .logo {
+    order: 2;      /* Moves logo to the right of the icon */
+  }
+
+  .navbar-logo {
+    height: 40px;  /* Slightly smaller logo for mobile */
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column; /* Stack links vertically */
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 80px; /* Sits right under the navbar */
+    left: -100%; /* Hidden off-screen by default */
+    opacity: 0;
+    transition: all 0.4s ease;
+    background: #ffffff;
+    padding: 20px 0;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+  }
+
+  /* When menu is toggled OPEN */
+  .nav-links.active {
+    left: 0;
+    opacity: 1;
+  }
+
+  .nav-links li {
+    text-align: center;
+    padding: 15px 0;
+    width: 100%;
+  }
+
+  .nav-links a {
+    font-size: 1.2rem;
+    display: block;
+    width: 100%;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.logo h2 {
+  color: #0056b3; /* Digit Deer Blue */
+  margin: 0;
+}
+
+navbar-logo {
+  height: 50px;       /* Adjust this height to fit your navbar */
+  width: auto;        /* Maintains aspect ratio */
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.05); /* Subtle zoom effect when hovering */
+}
+
+/* Ensure the logo container doesn't have extra padding */
+.logo a {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  text-decoration: none;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+ background: linear-gradient(135deg, #004494, #007bff);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.cta-btn {
+  background-color: white;
+  color: #0056b3;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* Services Grid */
+.services-section {
+  padding: 50px;
+  text-align: center;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.service-card {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+}
+
+.icon {
+  font-size: 40px;
+  color: #0056b3;
+  margin-bottom: 15px;
+}
+
+/* =========================
+   FOOTER STYLING
+   ========================= */
+.footer {
+  background-color: #1a1a1a; /* Dark Professional Grey */
+  color: #b0b0b0;
+  padding: 70px 0 0;
+  margin-top: auto; /* Pushes footer to bottom if content is short */
+  font-size: 14px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 20px 50px;
+  border-bottom: 1px solid #333;
+}
+
+.footer-col {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 20px;
+  padding-right: 20px;
+}
+
+/* Column Headings */
+.footer-col h3 {
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.footer-col h4 {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.footer-col h4::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  background-color: #007bff; /* Digit Deer Blue */
+  height: 2px;
+  box-sizing: border-box;
+  width: 50px;
+}
+
+/* Links List */
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+  color: #b0b0b0;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+  color: #007bff;
+  padding-left: 5px; /* Subtle slide effect */
+}
+
+/* Social Icons */
+.social-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.social-icon:hover {
+  background-color: #007bff;
+  transform: translateY(-3px);
+}
+
+/* Contact Icons */
+.contact-info li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.contact-icon {
+  color: #007bff;
+  margin-top: 3px;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  background-color: #111;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  color: #777;
+}
+
+.footer-bottom-links a {
+  color: #777;
+  margin-left: 20px;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.footer-bottom-links a:hover {
+  color: #fff;
+}
+
+/* Responsive Mobile Check */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
   }
+}
+
+/* =========================
+   CONTACT PAGE STYLING
+   ========================= */
+.contact-page {
+  padding: 50px 20px;
+  background-color: #f8f9fa;
+  min-height: 80vh;
+}
+
+.contact-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.contact-header h1 {
+  color: #0056b3;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  overflow: hidden; /* Ensures radius clips content */
+}
+
+/* LEFT COLUMN: Info & Map */
+.contact-info {
+  flex: 1;
+  background-color: #0056b3; /* Digit Deer Blue */
+  color: white;
+  padding: 40px;
+  min-width: 300px;
+}
+
+.contact-info h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.info-desc {
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 25px;
+}
+
+.info-icon {
+  font-size: 1.5rem;
+  margin-right: 15px;
+  margin-top: 3px;
+  color: #66b2ff; /* Lighter blue for icons */
+}
+
+.info-item h4 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.info-item p {
+  margin: 5px 0 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* Map Styling */
+.map-container {
+  margin-top: 30px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* RIGHT COLUMN: Form */
+.contact-form-wrapper {
+  flex: 1.5;
+  padding: 40px;
+  background-color: white;
+  min-width: 300px;
+}
+
+.contact-form .form-group {
+  margin-bottom: 20px;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  box-sizing: border-box; /* Fixes width overflow */
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  border-color: #0056b3;
+  outline: none;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #004494;
+}
+
+/* Responsive: Stack columns on mobile */
+@media (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+  }
+}
+
+/* =========================
+   ABOUT PAGE STYLING
+   ========================= */
+
+/* Hero Section */
+.about-hero {
+  background: linear-gradient(135deg, #004494, #007bff); /* Deep Blue Gradient */
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.about-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.about-hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Main Container */
+.about-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 50px 20px;
+  background-color: white;
+}
+
+/* Sections */
+.about-section {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.about-section h2, 
+.why-us-section h2 {
+  color: #0056b3;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+.about-section p {
+  line-height: 1.6;
+  color: #555;
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 0 auto 15px;
+}
+
+/* Mission & Vision Cards */
+.mission-vision-grid {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.mv-card {
+  flex: 1;
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  text-align: center;
+  border-top: 5px solid #0056b3; /* Blue accent line */
+}
+
+.mv-card h3 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.mv-card p {
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Why Choose Us List */
+.features-list {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.features-list li {
+  background: #fff;
+  border-left: 4px solid #007bff;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  font-size: 1.05rem;
+  color: #444;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mission-vision-grid {
+    flex-direction: column;
+  }
+}
+
+/* Fix for Contact Info appearing as links/blue */
+.contact-info li span {
+  color: #b0b0b0; /* Matches footer text color */
+  text-decoration: none; /* Removes underline */
+  cursor: text; /* Shows it is text, not a button */
+}
+
+/* Stops mobile browsers from turning phone numbers blue */
+.contact-info li a[href^="tel"],
+.contact-info li a[href^="mailto"] {
+  color: #b0b0b0;
+  text-decoration: none;
+  pointer-events: none; /* Optional: prevents clicking if you want it static */
+}
+
+/* Ensure only the ICON stays blue */
+.contact-icon {
+  color: #007bff !important; /* Forces icon to stay blue */
+}
+
+/* =========================
+   SERVICES PAGE STYLING
+   ========================= */
+
+.services-page {
+  background-color: #f4f4f9;
+  padding-bottom: 50px;
+}
+
+/* Header Section */
+.services-header {
+  background: linear-gradient(135deg, #0056b3, #00d4ff);
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.services-header h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.services-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Grid Layout */
+.services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 0 20px;
+}
+
+/* Service Cards */
+.service-card-large {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card-large:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.service-icon-large {
+  font-size: 50px;
+  color: #0056b3; /* Digit Deer Blue */
+  margin-bottom: 20px;
+}
+
+.service-card-large h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.service-card-large p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* "Get Started" Button inside Card */
+.service-btn {
+  display: inline-block;
+  text-decoration: none;
+  color: #0056b3;
+  font-weight: bold;
+  border: 2px solid #0056b3;
+  padding: 10px 25px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.service-btn:hover {
+  background: #0056b3;
+  color: white;
+}
+
+/* Bottom CTA Section */
+.cta-section {
+  text-align: center;
+  margin-top: 80px;
+  padding: 60px 20px;
+  background: white;
+  border-top: 1px solid #eee;
+}
+
+.cta-section h2 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.cta-button {
+  background: #0056b3;
+  color: white;
+  padding: 15px 40px;
+  text-decoration: none;
+  border-radius: 30px; /* Rounded pill shape */
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 20px;
+  transition: background 0.3s;
+}
+
+.cta-button:hover {
+  background: #004494;
+}
+
+/* src/App.css */
+
+.form-feedback {
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.form-feedback.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.form-feedback.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }

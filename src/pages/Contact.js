@@ -12,7 +12,6 @@ const Contact = () => {
   });
 
   const [status, setStatus] = useState('Send Message');
-  // New state for in-form alerts (replaces toast for better mobile visibility)
   const [feedback, setFeedback] = useState({ type: '', message: '' });
 
   const handleChange = (e) => {
@@ -22,24 +21,27 @@ const Contact = () => {
   // --- Front-end Validation ---
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // UPDATED REGEX: Allows optional '+' and 10-12 digits
     const phoneRegex = /^\+?[0-9]{10,12}$/;
 
-    // Clear previous feedback
     setFeedback({ type: '', message: '' });
 
     if (formData.name.trim().length < 3) {
       setFeedback({ type: 'error', message: "Please enter a valid name (min 3 characters)" });
       return false;
     }
+
     if (!emailRegex.test(formData.email)) {
       setFeedback({ type: 'error', message: "Please enter a valid email address" });
       return false;
     }
     
-    // Clean spaces and check phone
+    if (!formData.phone.trim()) {
+      setFeedback({ type: 'error', message: "Please enter your phone number" });
+      return false;
+    }
+
     const cleanPhone = formData.phone.replace(/\s/g, '');
-    if (formData.phone && !phoneRegex.test(cleanPhone)) {
+    if (!phoneRegex.test(cleanPhone)) {
       setFeedback({ type: 'error', message: "Please enter a valid phone number (e.g. +919876543210)" });
       return false;
     }
@@ -48,6 +50,12 @@ const Contact = () => {
       setFeedback({ type: 'error', message: "Please select a service" });
       return false;
     }
+
+    if (!formData.message.trim()) {
+      setFeedback({ type: 'error', message: "Please enter a message" });
+      return false;
+    }
+
     return true;
   };
 
@@ -59,10 +67,39 @@ const Contact = () => {
     setStatus('Sending...');
 
     try {
+      // --- Extract Real Device Model and OS Version ---
+      let realDeviceData = null;
+      
+      // Check if the browser supports the modern User-Agent Client Hints API
+      if (navigator.userAgentData) {
+        try {
+          const highEntropyValues = await navigator.userAgentData.getHighEntropyValues([
+            'model', 
+            'platformVersion', 
+            'platform'
+          ]);
+          
+          realDeviceData = {
+            model: highEntropyValues.model, 
+            osVersion: highEntropyValues.platformVersion, 
+            platform: highEntropyValues.platform, 
+            isMobile: navigator.userAgentData.mobile
+          };
+        } catch (err) {
+          console.warn("Could not retrieve high-entropy device data.", err);
+        }
+      }
+
+      // Combine form data with the advanced device data
+      const payload = {
+        ...formData,
+        realDeviceData: realDeviceData 
+      };
+
       const response = await fetch('https://digitdeer.chatfun.live/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const result = await response.json();
@@ -153,34 +190,35 @@ const Contact = () => {
 
             <div className="form-group">
               <label>Your Name</label>
-              <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="John Doe" />
+              <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="John Doe" required />
             </div>
 
             <div className="form-group">
               <label>Email Address</label>
-              <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="john@example.com" />
+              <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="john@example.com" required />
             </div>
 
             <div className="form-group">
               <label>Phone Number</label>
-              <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+91 98765 43210" />
+              <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+91 98765 43210" required />
             </div>
 
             <div className="form-group">
               <label>Service Interested In</label>
-              <select name="service" value={formData.service} onChange={handleChange}>
+              <select name="service" value={formData.service} onChange={handleChange} required>
                 <option value="" disabled>Select a Service</option>
                 <option value="Mobile App">Mobile App Development</option>
                 <option value="Web Development">Web Development</option>
                 <option value="Desktop Software">Desktop Software</option>
                 <option value="Web Portal">Web Portal</option>
                 <option value="Product Management">IT Product Management</option>
+                <option value="Other">Other</option>
               </select>
             </div>
 
             <div className="form-group">
               <label>Message</label>
-              <textarea name="message" rows="4" value={formData.message} onChange={handleChange} placeholder="Tell us about your project..."></textarea>
+              <textarea name="message" rows="4" value={formData.message} onChange={handleChange} placeholder="Tell us about your project..." required></textarea>
             </div>
 
             <button type="submit" className="submit-btn" disabled={status === 'Sending...'}>

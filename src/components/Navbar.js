@@ -1,7 +1,7 @@
 // src/components/Navbar.js
-import React, { useState } from 'react'; // Added useState
+import React, { useState } from 'react'; 
 import { Link } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa'; // Added icons
+import { FaBars, FaTimes } from 'react-icons/fa'; 
 import logo from '../assets/digitdeer.png'; 
 import '../App.css'; 
 
@@ -12,7 +12,6 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
-  // Close menu when a link is clicked
   const closeMenu = () => setIsOpen(false);
 
   return (
@@ -31,10 +30,11 @@ const Navbar = () => {
 
       {/* 3. Navigation Links */}
       <ul className={isOpen ? "nav-links active" : "nav-links"}>
-        <li><Link to="/" onClick={closeMenu}>Home</Link></li>
-        <li><Link to="/about" onClick={closeMenu}>About Us</Link></li>
-        <li><Link to="/services" onClick={closeMenu}>Services</Link></li>
-        <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
+        <li><Link to="/" className="nav-item" onClick={closeMenu}>Home</Link></li>
+        <li><Link to="/about" className="nav-item" onClick={closeMenu}>About Us</Link></li>
+        <li><Link to="/services" className="nav-item" onClick={closeMenu}>Services</Link></li>
+        {/* Contact gets the special CTA Button styling */}
+        <li><Link to="/contact" className="nav-cta" onClick={closeMenu}>Contact</Link></li>
       </ul>
     </nav>
   );

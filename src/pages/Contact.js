@@ -140,13 +140,13 @@ const Contact = () => {
           <h3>Contact Information</h3>
           <p className="info-desc">Fill up the form and our team will get back to you within 24 hours.</p>
           
-          <div className="info-item">
+          {/*<div className="info-item">
             <FaPhoneAlt className="info-icon" />
             <div>
               <h4>Phone</h4>
               <p>+91 8650788779</p>
             </div>
-          </div>
+          </div>*/}
 
           <div className="info-item">
             <FaEnvelope className="info-icon" />

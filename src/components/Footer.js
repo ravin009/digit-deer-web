@@ -56,10 +56,10 @@ const Footer = () => {
               <FaMapMarkerAlt className="contact-icon" />
               <span>Rudrapur (Udham Singh Nagar) Uttarakhand, India, 263153</span>
             </li>
-            <li>
+            {/*<li>
               <FaPhoneAlt className="contact-icon" />
               <span>+91 8650788779</span>
-            </li>
+            </li>*/}
             <li>
               <FaEnvelope className="contact-icon" />
               <span>support@digitdeersolutions.com</span>
